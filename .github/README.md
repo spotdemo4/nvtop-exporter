@@ -89,11 +89,11 @@ scrape_configs:
 
 ### AppImage
 
-[`nvtop-exporter_0.0.8_linux_amd64.AppImage`](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.8)
+[`nvtop-exporter_0.0.9_linux_amd64.AppImage`](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.9)
 
 ```console
-$ chmod +x nvtop-exporter_0.0.8_linux_amd64.AppImage
-$ ./nvtop-exporter_0.0.8_linux_amd64.AppImage
+$ chmod +x nvtop-exporter_0.0.9_linux_amd64.AppImage
+$ ./nvtop-exporter_0.0.9_linux_amd64.AppImage
 2026-02-23 11:52:09,536 - INFO - Starting server on :8080
 ```
 
@@ -107,7 +107,7 @@ Description=nvtop gpu exporter
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/nvtop-exporter_0.0.8_linux_amd64.AppImage
+ExecStart=/usr/local/bin/nvtop-exporter_0.0.9_linux_amd64.AppImage
 Type=simple
 Restart=on-failure
 
@@ -118,7 +118,7 @@ WantedBy=multi-user.target
 ### Docker
 
 ```elm
-docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.8
+docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.9
 ```
 
 #### Nvidia
@@ -128,10 +128,10 @@ docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.8
 ```yaml
 services:
   nvtop-exporter:
-    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.8
+    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.9
     pid: host
     ports:
-      - "8080:8080"
+      - "80.0.9080"
 
     # Expose the GPU
     runtime: nvidia
@@ -152,10 +152,10 @@ services:
 ```yaml
 services:
   nvtop-exporter:
-    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.8
+    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.9
     pid: host
     ports:
-      - "8080:8080"
+      - "80.0.9080"
 
     # Expose the GPU
     devices:
