@@ -1,0 +1,13 @@
+/.env
+/.envrc
+/docker-compose*
+
+# python
+/.venv
+/dist
+/.ruff_cache
+__pycache__
+
+# nix
+/result*
+/.direnv/
