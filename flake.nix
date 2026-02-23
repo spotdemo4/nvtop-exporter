@@ -1,5 +1,5 @@
 {
-  description = "nvtop exporter";
+  description = "Prometheus exporter for nvtop";
 
   nixConfig = {
     extra-substituters = [

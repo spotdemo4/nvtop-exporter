@@ -1,4 +1,4 @@
-# nvtop exporter
+# nvtop-exporter
 
 [![check](https://img.shields.io/github/actions/workflow/status/spotdemo4/nvtop-exporter/check.yaml?branch=main&logo=github&logoColor=%23bac2de&label=check&labelColor=%23313244)](https://github.com/spotdemo4/nvtop-exporter/actions/workflows/check.yaml/)
 [![vulnerable](https://img.shields.io/github/actions/workflow/status/spotdemo4/nvtop-exporter/vulnerable.yaml?branch=main&logo=github&logoColor=%23bac2de&label=vulnerable&labelColor=%23313244)](https://github.com/spotdemo4/nvtop-exporter/actions/workflows/vulnerable.yaml)
