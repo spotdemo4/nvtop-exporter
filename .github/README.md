@@ -33,7 +33,9 @@ scrape_configs:
 
 ## Install
 
-### [AppImage](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.2)
+### AppImage
+
+[`nvtop-exporter_0.0.2_linux_amd64.AppImage`](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.2)
 
 ```console
 $ chmod +x nvtop-exporter_0.0.2_linux_amd64.AppImage
