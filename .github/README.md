@@ -4,7 +4,10 @@
 [![vulnerable](https://img.shields.io/github/actions/workflow/status/spotdemo4/nvtop-exporter/vulnerable.yaml?branch=main&logo=github&logoColor=%23bac2de&label=vulnerable&labelColor=%23313244)](https://github.com/spotdemo4/nvtop-exporter/actions/workflows/vulnerable.yaml)
 [![nix](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2Fflake.lock&query=%24.nodes.nixpkgs.original.ref&logo=nixos&logoColor=%23bac2de&label=channel&labelColor=%23313244&color=%234d6fb7)](https://nixos.org/)
 [![python](<https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2F.python-version&search=(.*)&logo=python&logoColor=%23bac2de&label=version&labelColor=%23313244&color=%23306998>)](https://www.python.org/downloads/)
-[![pypi](https://img.shields.io/pypi/v/nvtop-exporter?logo=pypi&logoColor=%23bac2de&labelColor=%23313244&color=%23306998)](https://pypi.org/project/nvtop-exporter/)
+
+![github](https://img.shields.io/github/v/release/spotdemo4/nvtop-exporter?include_prereleases&sort=semver&logo=github&logoColor=%23bac2de&label=GitHub&labelColor=%23313244&color=%234d6fb7)
+[![flakehub](https://img.shields.io/endpoint?url=https://flakehub.com/f/spotdemo4/nvtop-exporter/badge)](https://flakehub.com/flake/spotdemo4/nvtop-exporter)
+[![pypi](https://img.shields.io/pypi/v/nvtop-exporter?logo=pypi&logoColor=%23bac2de&labelColor=%23313244&color=%23306998&label=PyPI)](https://pypi.org/project/nvtop-exporter/)
 
 Prometheus exporter for [`syllo/nvtop`](https://github.com/Syllo/nvtop)
 
