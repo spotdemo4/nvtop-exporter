@@ -35,9 +35,10 @@ scrape_configs:
 
 ### [AppImage](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.2)
 
-```elm
-chmod +x nvtop-exporter_0.0.2_linux_amd64.AppImage
-./nvtop-exporter_0.0.2_linux_amd64.AppImage
+```console
+$ chmod +x nvtop-exporter_0.0.2_linux_amd64.AppImage
+$ ./nvtop-exporter_0.0.2_linux_amd64.AppImage
+2026-02-23 11:52:09,536 - INFO - Starting server on :8080
 ```
 
 ### Docker
