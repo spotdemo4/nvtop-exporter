@@ -50,6 +50,7 @@ docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.2
 #### Nvidia
 
 ```yaml
+# docker-compose.yaml
 services:
   nvtop:
     image: ghcr.io/spotdemo4/nvtop-exporter:0.0.2
@@ -72,6 +73,7 @@ services:
 #### Intel
 
 ```yaml
+# docker-compose.yaml
 services:
   nvtop-exporter:
     image: ghcr.io/spotdemo4/nvtop-exporter:0.0.2
