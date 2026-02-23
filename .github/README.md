@@ -25,7 +25,7 @@ nvtop-exporter
 ### docker
 
 ```elm
-docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.1
+docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.2
 ```
 
 #### nvidia
@@ -33,7 +33,7 @@ docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.1
 ```yaml
 services:
   nvtop:
-    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.1
+    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.2
     pid: host
     ports:
       - "8080:8080"
@@ -55,7 +55,7 @@ services:
 ```yaml
 services:
   nvtop-exporter:
-    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.1
+    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.2
     pid: host
     ports:
       - "8080:8080"
