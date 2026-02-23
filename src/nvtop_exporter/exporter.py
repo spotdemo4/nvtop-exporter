@@ -35,14 +35,16 @@ class NvTopCollector(Collector):
         power_draw = GaugeMetricFamily(
             "gpu_power_draw_watts", "gpu power draw watts", labels=["index", "device"]
         )
-        gpu_util = GaugeMetricFamily(
-            "gpu_util_ratio", "gpu utilization %", labels=["index", "device"]
+        gpu_usage = GaugeMetricFamily(
+            "gpu_usage", "gpu utilization %", labels=["index", "device"]
+        )
+        mem_usage = GaugeMetricFamily(
+            "gpu_mem_usage", "gpu memory utilization %", labels=["index", "device"]
         )
         encode_decode = GaugeMetricFamily(
-            "gpu_encode_decode_ratio", "gpu encode/decode %", labels=["index", "device"]
-        )
-        mem_util = GaugeMetricFamily(
-            "gpu_mem_util_ratio", "gpu memory util %", labels=["index", "device"]
+            "gpu_encode_decode_usage",
+            "gpu encode/decode utilization %",
+            labels=["index", "device"],
         )
         mem_total = GaugeMetricFamily(
             "gpu_mem_total_bytes", "gpu memory total bytes", labels=["index", "device"]
@@ -56,18 +58,18 @@ class NvTopCollector(Collector):
 
         # process
         process_gpu_usage = GaugeMetricFamily(
-            "gpu_process_usage_ratio",
-            "gpu process usage %",
+            "gpu_process_usage",
+            "gpu process utilization %",
             labels=["index", "device", "pid", "cmdline", "kind", "user"],
         )
         process_gpu_mem_usage = GaugeMetricFamily(
-            "gpu_process_mem_usage_ratio",
-            "gpu process memory usage %",
+            "gpu_process_mem_usage",
+            "gpu process memory utilization %",
             labels=["index", "device", "pid", "cmdline", "kind", "user"],
         )
         process_encode_decode = GaugeMetricFamily(
-            "gpu_process_encode_decode_ratio",
-            "gpu process encode/decode %",
+            "gpu_process_encode_decode_usage",
+            "gpu process encode/decode utilization %",
             labels=["index", "device", "pid", "cmdline", "kind", "user"],
         )
 
@@ -79,9 +81,9 @@ class NvTopCollector(Collector):
             temp.add_metric([index, device.device_name], device.temp)
             fan_speed.add_metric([index, device.device_name], device.fan_speed)
             power_draw.add_metric([index, device.device_name], device.power_draw)
-            gpu_util.add_metric([index, device.device_name], device.gpu_util)
+            gpu_usage.add_metric([index, device.device_name], device.gpu_util)
             encode_decode.add_metric([index, device.device_name], device.encode_decode)
-            mem_util.add_metric([index, device.device_name], device.mem_util)
+            mem_usage.add_metric([index, device.device_name], device.mem_util)
             mem_total.add_metric([index, device.device_name], device.mem_total)
             mem_used.add_metric([index, device.device_name], device.mem_used)
             mem_free.add_metric([index, device.device_name], device.mem_free)
@@ -126,9 +128,9 @@ class NvTopCollector(Collector):
         yield temp
         yield fan_speed
         yield power_draw
-        yield gpu_util
+        yield gpu_usage
         yield encode_decode
-        yield mem_util
+        yield mem_usage
         yield mem_total
         yield mem_used
         yield mem_free
