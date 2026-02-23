@@ -29,7 +29,9 @@ def default_none(value: Any) -> Any:
     return value
 
 
-Default = Annotated[int, BeforeValidator(default_none)]
+DefaultStr = Annotated[str, BeforeValidator(default_none)]
+DefaultInt = Annotated[int, BeforeValidator(default_none)]
+
 Unit = Annotated[int, BeforeValidator(strip_unit), BeforeValidator(default_none)]
 Percentage = Annotated[
     float,
@@ -40,18 +42,18 @@ Percentage = Annotated[
 
 
 class Process(BaseModel):
-    pid: int
-    cmdline: str
-    kind: str
-    user: str
+    pid: DefaultInt = 0
+    cmdline: DefaultStr = ""
+    kind: DefaultStr = ""
+    user: DefaultStr = ""
     gpu_usage: Unit = 0
-    gpu_mem_bytes_alloc: Default = 0
+    gpu_mem_bytes_alloc: DefaultInt = 0
     gpu_mem_usage: Percentage = 0
     encode_decode: Percentage = 0
 
 
 class Device(BaseModel):
-    device_name: str
+    device_name: DefaultStr = ""
     gpu_clock: Unit = 0
     mem_clock: Unit = 0
     temp: Unit = 0
@@ -60,9 +62,9 @@ class Device(BaseModel):
     gpu_util: Percentage = 0
     encode_decode: Percentage = 0
     mem_util: Unit = 0
-    mem_total: Default = 0
-    mem_used: Default = 0
-    mem_free: Default = 0
+    mem_total: DefaultInt = 0
+    mem_used: DefaultInt = 0
+    mem_free: DefaultInt = 0
     processes: List[Process]
 
 
