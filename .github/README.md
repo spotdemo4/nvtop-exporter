@@ -9,10 +9,62 @@ prometheus exporter for [`Syllo/nvtop`](https://github.com/Syllo/nvtop)
 
 ## use
 
+```elm
+nvtop-exporter
+```
+
+### environment
+
+| Variable  | Description                           | Default |
+| --------- | ------------------------------------- | ------- |
+| PORT      | Port for the HTTP server to listen on | 8080    |
+| LOG_LEVEL | How verbose the logs should be        | INFO    |
+
+## install
+
 ### docker
 
 ```elm
 docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.1
+```
+
+#### nvidia
+
+```yaml
+services:
+  nvtop:
+    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.1
+    pid: host
+    ports:
+      - "8080:8080"
+
+    # Expose the GPU
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+```
+
+#### intel
+
+```yaml
+services:
+  nvtop-exporter:
+    image: ghcr.io/spotdemo4/nvtop-exporter:0.0.1
+    pid: host
+    ports:
+      - "8080:8080"
+
+    # Expose the GPU
+    devices:
+      - /dev/dri:/dev/dri
+    cap_add:
+      - CAP_PERFMON
 ```
 
 ### nix
