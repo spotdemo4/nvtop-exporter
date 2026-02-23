@@ -3,10 +3,18 @@ name = "nvtop-exporter"
 version = "0.0.7"
 description = "Prometheus exporter for nvtop"
 readme = ".github/README.md"
+authors = [{ name = "spotdemo4", email = "me@trev.xyz" }]
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [
-    { name = "spotdemo4", email = "me@trev.xyz" }
+keywords = [
+    "nvidia",
+    "intel",
+    "amd",
+    "gpu",
+    "top",
+    "monitoring",
+    "prometheus",
+    "grafana",
 ]
 requires-python = ">=3.14"
 dependencies = [
