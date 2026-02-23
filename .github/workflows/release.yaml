@@ -36,4 +36,6 @@ jobs:
           BUNDLE: appimage
 
       - name: Publish
-        run: uv publish
+        run: |
+          uv build
+          uv publish
