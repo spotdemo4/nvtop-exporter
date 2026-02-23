@@ -196,6 +196,7 @@
                 ./pyproject.toml
                 ./.python-version
                 ./.github/README.md
+                ./LICENSE
                 (fs.fileFilter (file: file.hasExt "py") ./.)
               ];
             };
