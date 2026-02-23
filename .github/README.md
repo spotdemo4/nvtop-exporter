@@ -16,10 +16,10 @@ $ ./nvtop-exporter
 
 ### Environment
 
-| Variable  | Description                           | Default |
-| --------- | ------------------------------------- | ------- |
-| PORT      | Port for the HTTP server to listen on | 8080    |
-| LOG_LEVEL | How verbose the logs should be        | INFO    |
+| Variable  | Default | Description                           |
+| --------- | ------- | ------------------------------------- |
+| PORT      | 8080    | Port for the HTTP server to listen on |
+| LOG_LEVEL | INFO    | How verbose the logs should be        |
 
 ### Prometheus
 
@@ -35,7 +35,7 @@ scrape_configs:
 
 ### [AppImage](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.2)
 
-```properties
+```elm
 chmod +x nvtop-exporter_0.0.2_linux_amd64.AppImage
 ./nvtop-exporter_0.0.2_linux_amd64.AppImage
 ```
