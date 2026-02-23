@@ -7,28 +7,46 @@
 
 prometheus exporter for [`Syllo/nvtop`](https://github.com/Syllo/nvtop)
 
-## use
+## Use
 
-```elm
-nvtop-exporter
+```bash
+$ ./nvtop-exporter
+2026-02-23 11:52:09,536 - INFO - Starting server on :8080
 ```
 
-### environment
+### Prometheus
+
+```yaml
+scrape_configs:
+  - job_name: nvtop
+    static_configs:
+      - targets:
+          - 127.0.0.1:8080"
+```
+
+### Environment
 
 | Variable  | Description                           | Default |
 | --------- | ------------------------------------- | ------- |
 | PORT      | Port for the HTTP server to listen on | 8080    |
 | LOG_LEVEL | How verbose the logs should be        | INFO    |
 
-## install
+## Install
 
-### docker
+### [AppImage](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.2)
+
+```sh
+chmod +x nvtop-exporter_0.0.2_linux_amd64.AppImage
+./nvtop-exporter_0.0.2_linux_amd64.AppImage
+```
+
+### Docker
 
 ```elm
 docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.2
 ```
 
-#### nvidia
+#### Nvidia
 
 ```yaml
 services:
@@ -50,7 +68,7 @@ services:
                 - gpu
 ```
 
-#### intel
+#### Intel
 
 ```yaml
 services:
