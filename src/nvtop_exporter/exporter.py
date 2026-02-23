@@ -19,74 +19,77 @@ class NvTopCollector(Collector):
         log.info("Getting GPU metrics")
         top = get_nvtop()
 
-        # device guages
+        # device
         gpu_clock = GaugeMetricFamily(
-            "gpu_clock_mhz", "gpu clock MHz", labels=["device"]
+            "gpu_clock_mhz", "gpu clock MHz", labels=["index", "device"]
         )
         mem_clock = GaugeMetricFamily(
-            "gpu_mem_clock_mhz", "mem clock MHz", labels=["device"]
+            "gpu_mem_clock_mhz", "mem clock MHz", labels=["index", "device"]
         )
         temp = GaugeMetricFamily(
-            "gpu_temp_celsius", "gpu temp celsius", labels=["device"]
+            "gpu_temp_celsius", "gpu temp celsius", labels=["index", "device"]
         )
         fan_speed = GaugeMetricFamily(
-            "gpu_fan_speed_rpm", "gpu fan speed rpm", labels=["device"]
+            "gpu_fan_speed_rpm", "gpu fan speed rpm", labels=["index", "device"]
         )
         power_draw = GaugeMetricFamily(
-            "gpu_power_draw_watts", "gpu power draw watts", labels=["device"]
+            "gpu_power_draw_watts", "gpu power draw watts", labels=["index", "device"]
         )
         gpu_util = GaugeMetricFamily(
-            "gpu_util_ratio", "gpu utilization %", labels=["device"]
+            "gpu_util_ratio", "gpu utilization %", labels=["index", "device"]
         )
         encode_decode = GaugeMetricFamily(
-            "gpu_encode_decode_ratio", "gpu encode/decode %", labels=["device"]
+            "gpu_encode_decode_ratio", "gpu encode/decode %", labels=["index", "device"]
         )
         mem_util = GaugeMetricFamily(
-            "gpu_mem_util_ratio", "gpu memory util %", labels=["device"]
+            "gpu_mem_util_ratio", "gpu memory util %", labels=["index", "device"]
         )
         mem_total = GaugeMetricFamily(
-            "gpu_mem_total_bytes", "gpu memory total bytes", labels=["device"]
+            "gpu_mem_total_bytes", "gpu memory total bytes", labels=["index", "device"]
         )
         mem_used = GaugeMetricFamily(
-            "gpu_mem_used_bytes", "gpu memory used bytes", labels=["device"]
+            "gpu_mem_used_bytes", "gpu memory used bytes", labels=["index", "device"]
         )
         mem_free = GaugeMetricFamily(
-            "gpu_mem_free_bytes", "gpu memory free bytes", labels=["device"]
+            "gpu_mem_free_bytes", "gpu memory free bytes", labels=["index", "device"]
         )
 
-        # process guages
+        # process
         process_gpu_usage = GaugeMetricFamily(
             "gpu_process_usage_ratio",
             "gpu process usage %",
-            labels=["device", "pid", "cmdline", "kind", "user"],
+            labels=["index", "device", "pid", "cmdline", "kind", "user"],
         )
         process_gpu_mem_usage = GaugeMetricFamily(
             "gpu_process_mem_usage_ratio",
             "gpu process memory usage %",
-            labels=["device", "pid", "cmdline", "kind", "user"],
+            labels=["index", "device", "pid", "cmdline", "kind", "user"],
         )
         process_encode_decode = GaugeMetricFamily(
             "gpu_process_encode_decode_ratio",
             "gpu process encode/decode %",
-            labels=["device", "pid", "cmdline", "kind", "user"],
+            labels=["index", "device", "pid", "cmdline", "kind", "user"],
         )
 
-        for device in top.devices:
-            gpu_clock.add_metric([device.device_name], device.gpu_clock)
-            mem_clock.add_metric([device.device_name], device.mem_clock)
-            temp.add_metric([device.device_name], device.temp)
-            fan_speed.add_metric([device.device_name], device.fan_speed)
-            power_draw.add_metric([device.device_name], device.power_draw)
-            gpu_util.add_metric([device.device_name], device.gpu_util)
-            encode_decode.add_metric([device.device_name], device.encode_decode)
-            mem_util.add_metric([device.device_name], device.mem_util)
-            mem_total.add_metric([device.device_name], device.mem_total)
-            mem_used.add_metric([device.device_name], device.mem_used)
-            mem_free.add_metric([device.device_name], device.mem_free)
+        for i, device in enumerate(top.devices):
+            index = str(i)
+
+            gpu_clock.add_metric([index, device.device_name], device.gpu_clock)
+            mem_clock.add_metric([index, device.device_name], device.mem_clock)
+            temp.add_metric([index, device.device_name], device.temp)
+            fan_speed.add_metric([index, device.device_name], device.fan_speed)
+            power_draw.add_metric([index, device.device_name], device.power_draw)
+            gpu_util.add_metric([index, device.device_name], device.gpu_util)
+            encode_decode.add_metric([index, device.device_name], device.encode_decode)
+            mem_util.add_metric([index, device.device_name], device.mem_util)
+            mem_total.add_metric([index, device.device_name], device.mem_total)
+            mem_used.add_metric([index, device.device_name], device.mem_used)
+            mem_free.add_metric([index, device.device_name], device.mem_free)
 
             for process in device.processes:
                 process_gpu_usage.add_metric(
                     [
+                        index,
                         device.device_name,
                         str(process.pid),
                         process.cmdline,
@@ -97,6 +100,7 @@ class NvTopCollector(Collector):
                 )
                 process_gpu_mem_usage.add_metric(
                     [
+                        index,
                         device.device_name,
                         str(process.pid),
                         process.cmdline,
@@ -107,6 +111,7 @@ class NvTopCollector(Collector):
                 )
                 process_encode_decode.add_metric(
                     [
+                        index,
                         device.device_name,
                         str(process.pid),
                         process.cmdline,
