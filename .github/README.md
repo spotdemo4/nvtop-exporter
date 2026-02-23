@@ -5,7 +5,7 @@
 [![nix](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2Fflake.lock&query=%24.nodes.nixpkgs.original.ref&logo=nixos&logoColor=%23bac2de&label=channel&labelColor=%23313244&color=%234d6fb7)](https://nixos.org/)
 [![python](<https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2F.python-version&search=(.*)&logo=python&logoColor=%23bac2de&label=version&labelColor=%23313244&color=%23306998>)](https://www.python.org/downloads/)
 
-prometheus exporter for [`Syllo/nvtop`](https://github.com/Syllo/nvtop)
+prometheus exporter for [`syllo/nvtop`](https://github.com/Syllo/nvtop)
 
 ## Use
 
@@ -49,8 +49,9 @@ docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.2
 
 #### Nvidia
 
+docker-compose.yaml
+
 ```yaml
-# docker-compose.yaml
 services:
   nvtop:
     image: ghcr.io/spotdemo4/nvtop-exporter:0.0.2
@@ -72,8 +73,9 @@ services:
 
 #### Intel
 
+docker-compose.yaml
+
 ```yaml
-# docker-compose.yaml
 services:
   nvtop-exporter:
     image: ghcr.io/spotdemo4/nvtop-exporter:0.0.2
