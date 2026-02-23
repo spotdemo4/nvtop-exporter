@@ -9,10 +9,17 @@ prometheus exporter for [`Syllo/nvtop`](https://github.com/Syllo/nvtop)
 
 ## Use
 
-```bash
+```console
 $ ./nvtop-exporter
 2026-02-23 11:52:09,536 - INFO - Starting server on :8080
 ```
+
+### Environment
+
+| Variable  | Description                           | Default |
+| --------- | ------------------------------------- | ------- |
+| PORT      | Port for the HTTP server to listen on | 8080    |
+| LOG_LEVEL | How verbose the logs should be        | INFO    |
 
 ### Prometheus
 
@@ -24,18 +31,11 @@ scrape_configs:
           - 127.0.0.1:8080"
 ```
 
-### Environment
-
-| Variable  | Description                           | Default |
-| --------- | ------------------------------------- | ------- |
-| PORT      | Port for the HTTP server to listen on | 8080    |
-| LOG_LEVEL | How verbose the logs should be        | INFO    |
-
 ## Install
 
 ### [AppImage](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.2)
 
-```sh
+```properties
 chmod +x nvtop-exporter_0.0.2_linux_amd64.AppImage
 ./nvtop-exporter_0.0.2_linux_amd64.AppImage
 ```
