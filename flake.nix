@@ -148,11 +148,8 @@
 
           actions = {
             src = fs.toSource {
-              root = ./.;
-              fileset = fs.unions [
-                ./action.yaml
-                ./.github/workflows
-              ];
+              root = ./.github/workflows;
+              fileset = ./.github/workflows;
             };
             deps = with pkgs; [
               action-validator
@@ -190,19 +187,18 @@
 
             src = fs.toSource {
               root = ./.;
-              fileset = fs.difference ./. (
-                fs.unions [
-                  ./.vscode
-                  ./.github/workflows
-                  ./flake.nix
-                  ./flake.lock
-                ]
-              );
+              fileset = fs.unions [
+                ./uv.lock
+                ./pyproject.toml
+                ./.python-version
+                ./.github/README.md
+                (fs.fileFilter (file: file.hasExt "py") ./.)
+              ];
             };
 
-            build-system = [
-              pkgs.python314Packages.setuptools
-              pkgs.uv-build.python314
+            build-system = with pkgs; [
+              python314Packages.setuptools
+              uv-build.python314
             ];
 
             pythonRelaxDeps = true;
