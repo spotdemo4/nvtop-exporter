@@ -1,6 +1,6 @@
 [project]
 name = "nvtop-exporter"
-version = "0.0.7"
+version = "0.0.8"
 description = "Prometheus exporter for nvtop"
 readme = ".github/README.md"
 authors = [{ name = "spotdemo4", email = "me@trev.xyz" }]
