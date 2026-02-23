@@ -123,7 +123,7 @@ docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.4
 
 ```yaml
 services:
-  nvtop:
+  nvtop-exporter:
     image: ghcr.io/spotdemo4/nvtop-exporter:0.0.4
     pid: host
     ports:
