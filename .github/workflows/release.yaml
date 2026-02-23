@@ -35,7 +35,7 @@ jobs:
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           BUNDLE: appimage
 
-      - name: Publish
+      - name: Publish to PyPI
         run: |
           uv build
           uv publish
