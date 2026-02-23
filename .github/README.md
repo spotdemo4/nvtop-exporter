@@ -5,7 +5,57 @@
 [![nix](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2Fflake.lock&query=%24.nodes.nixpkgs.original.ref&logo=nixos&logoColor=%23bac2de&label=channel&labelColor=%23313244&color=%234d6fb7)](https://nixos.org/)
 [![python](<https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2F.python-version&search=(.*)&logo=python&logoColor=%23bac2de&label=version&labelColor=%23313244&color=%23306998>)](https://www.python.org/downloads/)
 
-prometheus exporter for [`syllo/nvtop`](https://github.com/Syllo/nvtop)
+Prometheus exporter for [`syllo/nvtop`](https://github.com/Syllo/nvtop)
+
+### Metrics
+
+```bash
+# HELP gpu_clock_mhz gpu clock MHz
+# TYPE gpu_clock_mhz gauge
+gpu_clock_mhz{device="DG2 (Arc A770)",index="0"} 2400.0
+# HELP gpu_mem_clock_mhz mem clock MHz
+# TYPE gpu_mem_clock_mhz gauge
+gpu_mem_clock_mhz{device="DG2 (Arc A770)",index="0"} 0.0
+# HELP gpu_temp_celsius gpu temp celsius
+# TYPE gpu_temp_celsius gauge
+gpu_temp_celsius{device="DG2 (Arc A770)",index="0"} 48.0
+# HELP gpu_fan_speed_rpm gpu fan speed rpm
+# TYPE gpu_fan_speed_rpm gauge
+gpu_fan_speed_rpm{device="DG2 (Arc A770)",index="0"} 302.0
+# HELP gpu_power_draw_watts gpu power draw watts
+# TYPE gpu_power_draw_watts gauge
+gpu_power_draw_watts{device="DG2 (Arc A770)",index="0"} 38.0
+# HELP gpu_usage gpu utilization %
+# TYPE gpu_usage gauge
+gpu_usage{device="DG2 (Arc A770)",index="0"} 0.0
+# HELP gpu_mem_usage gpu memory utilization %
+# TYPE gpu_mem_usage gauge
+gpu_mem_usage{device="DG2 (Arc A770)",index="0"} 0.0
+# HELP gpu_encode_decode_usage gpu encode/decode utilization %
+# TYPE gpu_encode_decode_usage gauge
+gpu_encode_decode_usage{device="DG2 (Arc A770)",index="0"} 0.0
+# HELP gpu_mem_total_bytes gpu memory total bytes
+# TYPE gpu_mem_total_bytes gauge
+gpu_mem_total_bytes{device="DG2 (Arc A770)",index="0"} 1.7079205888e+010
+# HELP gpu_mem_used_bytes gpu memory used bytes
+# TYPE gpu_mem_used_bytes gauge
+gpu_mem_used_bytes{device="DG2 (Arc A770)",index="0"} 7.3265152e+07
+# HELP gpu_mem_free_bytes gpu memory free bytes
+# TYPE gpu_mem_free_bytes gauge
+gpu_mem_free_bytes{device="DG2 (Arc A770)",index="0"} 1.7005940736e+010
+# HELP gpu_process_usage gpu process utilization %
+# TYPE gpu_process_usage gauge
+gpu_process_usage{cmdline="/usr/lib/plexmediaserver/Plex Transcoder ...",device="DG2 (Arc A770)",index="0",kind="graphic",pid="1522258",user="trev"} 0.0
+gpu_process_usage{cmdline="nvtop -s",device="DG2 (Arc A770)",index="0",kind="graphic",pid="1550252",user="root"} 0.0
+# HELP gpu_process_mem_usage gpu process memory utilization %
+# TYPE gpu_process_mem_usage gauge
+gpu_process_mem_usage{cmdline="/usr/lib/plexmediaserver/Plex Transcoder ...",device="DG2 (Arc A770)",index="0",kind="graphic",pid="1522258",user="trev"} 0.01
+gpu_process_mem_usage{cmdline="nvtop -s",device="DG2 (Arc A770)",index="0",kind="graphic",pid="1550252",user="root"} 0.0
+# HELP gpu_process_encode_decode_usage gpu process encode/decode utilization %
+# TYPE gpu_process_encode_decode_usage gauge
+gpu_process_encode_decode_usage{cmdline="/usr/lib/plexmediaserver/Plex Transcoder ...",device="DG2 (Arc A770)",index="0",kind="graphic",pid="1522258",user="trev"} 0.0
+gpu_process_encode_decode_usage{cmdline="nvtop -s",device="DG2 (Arc A770)",index="0",kind="graphic",pid="1550252",user="root"} 0.0
+```
 
 ## Use
 
