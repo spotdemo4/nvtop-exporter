@@ -220,7 +220,7 @@
             ];
 
             meta = {
-              description = "nvtop exporter";
+              description = "Prometheus exporter for nvtop";
               mainProgram = "nvtop-exporter";
               homepage = "https://github.com/spotdemo4/nvtop-exporter";
               changelog = "https://github.com/spotdemo4/nvtop-exporter/releases/tag/v${finalAttrs.version}";
