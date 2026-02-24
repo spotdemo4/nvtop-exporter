@@ -89,7 +89,7 @@ scrape_configs:
 
 [`nvtop-exporter_0.0.9_linux_amd64.AppImage`](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.9)
 
-```properties
+```sh
 chmod +x nvtop-exporter_0.0.9_linux_amd64.AppImage &&
 ./nvtop-exporter_0.0.9_linux_amd64.AppImage
 ```
@@ -114,7 +114,7 @@ WantedBy=multi-user.target
 
 ### Docker
 
-```properties
+```sh
 docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.9
 ```
 
@@ -165,18 +165,18 @@ services:
 
 #### pip
 
-```properties
+```sh
 pip install nvtop-exporter
 ```
 
 #### uv
 
-```properties
+```sh
 uvx nvtop-exporter
 ```
 
 ### Nix
 
-```properties
+```sh
 nix run github:spotdemo4/nvtop-exporter
 ```
