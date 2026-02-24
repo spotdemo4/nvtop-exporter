@@ -5,7 +5,7 @@
 [![nix](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2Fflake.lock&query=%24.nodes.nixpkgs.original.ref&logo=nixos&logoColor=%23bac2de&label=channel&labelColor=%23313244&color=%234d6fb7)](https://nixos.org/)
 [![python](<https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Fraw.githubusercontent.com%2Fspotdemo4%2Fnvtop-exporter%2Frefs%2Fheads%2Fmain%2F.python-version&search=(.*)&logo=python&logoColor=%23bac2de&label=version&labelColor=%23313244&color=%23306998>)](https://www.python.org/downloads/)
 [![flakehub](https://img.shields.io/endpoint?url=https://flakehub.com/f/spotdemo4/nvtop-exporter/badge&labelColor=%23313244)](https://flakehub.com/flake/spotdemo4/nvtop-exporter)
-[![pypi](https://img.shields.io/pypi/v/nvtop-exporter?logo=pypi&logoColor=%23bac2de&labelColor=%23313244&color=%233775A9&label=PyPI)](https://pypi.org/project/nvtop-exporter/)
+[![pypi](https://img.shields.io/pypi/v/nvtop-exporter?logo=pypi&logoColor=%23bac2de&labelColor=%23313244&color=%23306998&label=PyPI)](https://pypi.org/project/nvtop-exporter/)
 
 Prometheus exporter for [`syllo/nvtop`](https://github.com/Syllo/nvtop)
 
@@ -62,11 +62,11 @@ gpu_process_encode_decode_usage{cmdline="nvtop -s",device="DG2 (Arc A770)",index
 ## Use
 
 ```console
-$ ./nvtop-exporter
+$ nvtop-exporter
 2026-02-23 11:52:09,536 - INFO - Starting server on :8080
 ```
 
-### Environment
+#### Environment Variables
 
 | Variable  | Default | Description                           |
 | --------- | ------- | ------------------------------------- |
@@ -80,7 +80,7 @@ scrape_configs:
   - job_name: nvtop
     static_configs:
       - targets:
-          - 127.0.0.1:8080"
+          - 127.0.0.1:8080
 ```
 
 ## Install
@@ -89,10 +89,9 @@ scrape_configs:
 
 [`nvtop-exporter_0.0.9_linux_amd64.AppImage`](https://github.com/spotdemo4/nvtop-exporter/releases/tag/v0.0.9)
 
-```console
-$ chmod +x nvtop-exporter_0.0.9_linux_amd64.AppImage
-$ ./nvtop-exporter_0.0.9_linux_amd64.AppImage
-2026-02-23 11:52:09,536 - INFO - Starting server on :8080
+```properties
+chmod +x nvtop-exporter_0.0.9_linux_amd64.AppImage &&
+./nvtop-exporter_0.0.9_linux_amd64.AppImage
 ```
 
 #### Service
@@ -115,7 +114,7 @@ WantedBy=multi-user.target
 
 ### Docker
 
-```elm
+```properties
 docker run ghcr.io/spotdemo4/nvtop-exporter:0.0.9
 ```
 
@@ -129,7 +128,7 @@ services:
     image: ghcr.io/spotdemo4/nvtop-exporter:0.0.9
     pid: host
     ports:
-      - "80.0.9080"
+      - "8080:8080"
 
     # Expose the GPU
     runtime: nvidia
@@ -153,7 +152,7 @@ services:
     image: ghcr.io/spotdemo4/nvtop-exporter:0.0.9
     pid: host
     ports:
-      - "80.0.9080"
+      - "8080:8080"
 
     # Expose the GPU
     devices:
@@ -166,18 +165,18 @@ services:
 
 #### pip
 
-```elm
+```properties
 pip install nvtop-exporter
 ```
 
 #### uv
 
-```elm
+```properties
 uvx nvtop-exporter
 ```
 
 ### Nix
 
-```elm
+```properties
 nix run github:spotdemo4/nvtop-exporter
 ```

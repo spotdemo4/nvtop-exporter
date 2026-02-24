@@ -9,7 +9,7 @@ on:
         description: "force"
         required: false
         type: choice
-        default: "true"
+        default: "false"
         options:
           - "true"
           - "false"
