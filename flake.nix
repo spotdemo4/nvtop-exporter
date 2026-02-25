@@ -186,7 +186,7 @@
         packages = with pkgs.lib; rec {
           default = pkgs.python314Packages.buildPythonPackage (finalAttrs: {
             pname = "nvtop-exporter";
-            version = "0.0.9";
+            version = "0.0.10";
             pyproject = true;
 
             src = fs.toSource {
