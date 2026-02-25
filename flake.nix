@@ -48,7 +48,7 @@
               python314
               uv
 
-              # nvtop
+              # deps
               nvtopPackages.full
 
               # lint
@@ -201,9 +201,9 @@
               ];
             };
 
-            build-system = with pkgs; [
-              python314Packages.setuptools
-              uv-build.python314
+            build-system = with pkgs.python314Packages; [
+              setuptools
+              uv-build
             ];
 
             pythonRelaxDeps = true;
