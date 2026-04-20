@@ -22,22 +22,14 @@
 
   outputs =
     {
-      nixpkgs,
+      self,
       trev,
       ...
     }:
     trev.libs.mkFlake (
-      system:
+      system: init:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [
-            trev.overlays.packages
-            trev.overlays.libs
-          ];
-        };
-        fs = pkgs.lib.fileset;
+        pkgs = init.appendOverlays [ trev.overlays.python ];
       in
       {
         devShells = {
@@ -93,30 +85,21 @@
 
           vulnerable = pkgs.mkShell {
             packages = with pkgs; [
-              # python
-              pysentry
-
-              # flake
-              flake-checker
-
-              # actions
-              octoscan
+              pysentry # python
+              flake-checker # flake
+              zizmor # actions
             ];
           };
         };
 
-        checks = pkgs.lib.mkChecks {
+        apps = pkgs.mkApps {
+          default = "uv run nvtop-exporter";
+        };
+
+        checks = pkgs.mkChecks {
           python = {
-            src = fs.toSource {
-              root = ./.;
-              fileset = fs.unions [
-                ./uv.lock
-                ./pyproject.toml
-                ./.python-version
-                (fs.fileFilter (file: file.hasExt "py") ./.)
-              ];
-            };
-            deps = with pkgs; [
+            src = self.packages.${system}.default;
+            packages = with pkgs; [
               ruff
             ];
             script = ''
@@ -125,24 +108,20 @@
           };
 
           nix = {
-            src = fs.toSource {
-              root = ./.;
-              fileset = fs.fileFilter (file: file.hasExt "nix") ./.;
-            };
-            deps = with pkgs; [
-              nixfmt-tree
+            root = ./.;
+            filter = file: file.hasExt "nix";
+            packages = with pkgs; [
+              nixfmt
             ];
-            script = ''
-              treefmt --ci
+            forEach = ''
+              nixfmt --check "$file"
             '';
           };
 
           renovate = {
-            src = fs.toSource {
-              root = ./.github;
-              fileset = ./.github/renovate.json;
-            };
-            deps = with pkgs; [
+            root = ./.github;
+            files = ./.github/renovate.json;
+            packages = with pkgs; [
               renovate
             ];
             script = ''
@@ -151,59 +130,60 @@
           };
 
           actions = {
-            src = fs.toSource {
-              root = ./.github/workflows;
-              fileset = ./.github/workflows;
-            };
-            deps = with pkgs; [
+            root = ./.;
+            files = ./.github/workflows;
+            packages = with pkgs; [
               action-validator
-              octoscan
+              zizmor
             ];
-            script = ''
-              action-validator **/*.yaml
-              octoscan scan .
+            forEach = ''
+              action-validator "$file"
+              zizmor "$file"
             '';
           };
 
           prettier = {
-            src = fs.toSource {
-              root = ./.;
-              fileset = fs.fileFilter (file: file.hasExt "yaml" || file.hasExt "json" || file.hasExt "md") ./.;
-            };
-            deps = with pkgs; [
+            root = ./.;
+            filter = file: file.hasExt "yaml" || file.hasExt "json" || file.hasExt "md";
+            packages = with pkgs; [
               prettier
             ];
-            script = ''
-              prettier --check .
+            forEach = ''
+              prettier --check "$file"
             '';
           };
         };
 
-        apps = pkgs.lib.mkApps {
-          dev.script = "uv run nvtop-exporter";
+        formatter = pkgs.treefmt.withConfig {
+          configFile = ./treefmt.toml;
+          runtimeInputs = with pkgs; [
+            ruff
+            nixfmt
+            prettier
+          ];
         };
 
-        packages = with pkgs.lib; rec {
-          default = pkgs.python314Packages.buildPythonPackage (finalAttrs: {
+        packages.default = pkgs.python314Packages.buildPythonPackage (
+          final: with pkgs.lib; {
             pname = "nvtop-exporter";
             version = "0.0.10";
-            pyproject = true;
 
-            src = fs.toSource {
+            src = fileset.toSource {
               root = ./.;
-              fileset = fs.unions [
-                ./uv.lock
-                ./pyproject.toml
+              fileset = fileset.unions [
                 ./.python-version
-                ./.github/README.md
                 ./LICENSE
-                (fs.fileFilter (file: file.hasExt "py") ./.)
+                ./pyproject.toml
+                ./README.md
+                ./uv.lock
+                ./src
               ];
             };
 
+            pyproject = true;
             build-system = with pkgs.python314Packages; [
               setuptools
-              uv-build
+              uv-build-latest
             ];
 
             pythonRelaxDeps = true;
@@ -221,40 +201,29 @@
             ];
 
             meta = {
-              description = "Prometheus exporter for nvtop";
               mainProgram = "nvtop-exporter";
-              homepage = "https://github.com/spotdemo4/nvtop-exporter";
-              changelog = "https://github.com/spotdemo4/nvtop-exporter/releases/tag/v${finalAttrs.version}";
+              description = "Prometheus exporter for nvtop";
               license = licenses.mit;
               platforms = platforms.all;
+              homepage = "https://github.com/spotdemo4/nvtop-exporter";
+              changelog = "https://github.com/spotdemo4/nvtop-exporter/releases/tag/v${final.version}";
             };
-          });
+          }
+        );
 
-          image = pkgs.dockerTools.buildLayeredImage {
-            name = default.pname;
-            tag = default.version;
-
-            contents = with pkgs; [
-              dockerTools.caCertificates
-            ];
-
-            created = "now";
-            meta = default.meta;
-
-            config = {
-              Entrypoint = [ "${meta.getExe default}" ];
-              Labels = {
-                "org.opencontainers.image.title" = default.pname;
-                "org.opencontainers.image.description" = default.meta.description;
-                "org.opencontainers.image.version" = default.version;
-                "org.opencontainers.image.source" = default.meta.homepage;
-                "org.opencontainers.image.licenses" = default.meta.license.spdxId;
-              };
-            };
+        images.default = pkgs.mkImage {
+          src = self.packages.${system}.default;
+          contents = with pkgs; [ dockerTools.caCertificates ];
+          config.ExposedPorts = {
+            "8080/tcp" = { };
           };
         };
 
-        formatter = pkgs.nixfmt-tree;
+        appimages.default = pkgs.mkAppImage {
+          src = self.packages.${system}.default;
+        };
+
+        schemas = trev.schemas;
       }
     );
 }

@@ -9,7 +9,7 @@ on:
         description: "force"
         required: false
         type: choice
-        default: "false"
+        default: "true"
         options:
           - "true"
           - "false"
@@ -25,7 +25,8 @@ jobs:
   bump:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - id: init
+        name: Initialize
         uses: spotdemo4/nix-init@757d5ba1fa0749e877484703bece0e17c7bd5670 # v1.43.0
         with:
           app_id: ${{ vars.CLIENT_ID }}
@@ -36,6 +37,6 @@ jobs:
       - name: Bump
         run: bumper
         env:
+          GITHUB_TOKEN: ${{ steps.init.outputs.token }}
           FORCE: ${{ inputs.force }}
-          PATHS: |-
-            .github/README.md
+          PATHS: README.md
