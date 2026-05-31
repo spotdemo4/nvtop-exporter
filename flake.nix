@@ -27,11 +27,7 @@
       ...
     }:
     trev.libs.mkFlake (
-      system: init:
-      let
-        pkgs = init.appendOverlays [ trev.overlays.python ];
-      in
-      {
+      system: pkgs: {
         devShells = {
           default = pkgs.mkShell {
             shellHook = pkgs.shellhook.ref;
@@ -45,6 +41,8 @@
 
               # lint
               ruff
+              nixd
+              nil
 
               # format
               nixfmt
@@ -221,8 +219,6 @@
         appimages.default = pkgs.mkAppImage {
           src = self.packages.${system}.default;
         };
-
-        schemas = trev.schemas;
       }
     );
 }
