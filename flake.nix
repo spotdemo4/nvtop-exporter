@@ -90,7 +90,7 @@
         };
 
         apps = pkgs.mkApps {
-          default = "uv run nvtop-exporter";
+          dev = "uv run nvtop-exporter";
         };
 
         checks = pkgs.mkChecks {
