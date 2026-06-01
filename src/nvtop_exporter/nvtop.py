@@ -2,7 +2,7 @@ import subprocess
 import json
 import re
 import logging
-from typing import List, Annotated, Any
+from typing import Annotated, cast
 from pydantic import BaseModel, BeforeValidator
 from pydantic_core import PydanticUseDefault
 
@@ -22,7 +22,7 @@ def strip_unit(value: str) -> int:
         return 0
 
 
-def default_none(value: Any) -> Any:
+def default_none(value: object) -> object:
     if value is None:
         raise PydanticUseDefault()
 
@@ -65,23 +65,23 @@ class Device(BaseModel):
     mem_total: DefaultInt = 0
     mem_used: DefaultInt = 0
     mem_free: DefaultInt = 0
-    processes: List[Process]
+    processes: list[Process]
 
 
 class NvTop(BaseModel):
-    devices: List[Device]
+    devices: list[Device]
 
 
-def get_nvtop():
+def get_nvtop() -> NvTop:
     log.debug("Running nvtop -s")
     result = subprocess.run(["nvtop", "-s"], capture_output=True, text=True, check=True)
 
     log.debug("Loading JSON")
-    nvtop_dict = json.loads(result.stdout)
-    log.debug(nvtop_dict)
+    nvtop_devices = cast(object, json.loads(result.stdout))
+    log.debug(nvtop_devices)
 
     log.debug("Parsing JSON")
-    nvtop = NvTop(devices=nvtop_dict)
+    nvtop = NvTop.model_validate({"devices": nvtop_devices})
     log.debug(nvtop)
 
     return nvtop

@@ -1,6 +1,8 @@
 import os
 import signal
 import logging
+from types import FrameType
+from typing import override
 from prometheus_client import (
     GC_COLLECTOR,
     PLATFORM_COLLECTOR,
@@ -15,6 +17,7 @@ log = logging.getLogger(__name__)
 
 
 class NvTopCollector(Collector):
+    @override
     def collect(self):
         log.info("Getting GPU metrics")
         top = get_nvtop()
@@ -155,10 +158,10 @@ def start() -> None:
     log.info(f"Starting server on :{port}")
     server, t = start_http_server(int(port))
 
-    def shutdown(sig, frame):
+    def shutdown(_sig: int, _frame: FrameType | None) -> None:
         log.info("Shutting down")
         server.shutdown()
         server.server_close()
 
-    signal.signal(signal.SIGINT, shutdown)
+    _ = signal.signal(signal.SIGINT, shutdown)
     t.join()
