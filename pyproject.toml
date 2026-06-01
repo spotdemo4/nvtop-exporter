@@ -6,21 +6,9 @@ readme = "README.md"
 authors = [{ name = "spotdemo4", email = "me@trev.xyz" }]
 license = "MIT"
 license-files = ["LICENSE"]
-keywords = [
-    "nvidia",
-    "intel",
-    "amd",
-    "gpu",
-    "top",
-    "monitoring",
-    "prometheus",
-    "grafana",
-]
+keywords = ["nvidia", "intel", "amd", "gpu", "top", "monitoring", "prometheus", "grafana"]
 requires-python = ">=3.14"
-dependencies = [
-    "prometheus-client>=0.24.1",
-    "pydantic>=2.12.5",
-]
+dependencies = ["prometheus-client>=0.24.1", "pydantic>=2.12.5"]
 
 [project.scripts]
 nvtop-exporter = "nvtop_exporter:main"
@@ -28,3 +16,7 @@ nvtop-exporter = "nvtop_exporter:main"
 [build-system]
 requires = ["uv_build>=0.11.0,<0.12.0"]
 build-backend = "uv_build"
+
+[tool.basedpyright]
+typeCheckingMode = "recommended"
+failOnWarnings = true

@@ -41,16 +41,17 @@
 
               # lint
               ruff
+              basedpyright
               nixd
               nil
 
               # format
               nixfmt
               prettier
+              treefmt
 
               # util
               bumper
-              flake-release
             ];
           };
 
@@ -94,15 +95,7 @@
         };
 
         checks = pkgs.mkChecks {
-          python = {
-            src = self.packages.${system}.default;
-            packages = with pkgs; [
-              ruff
-            ];
-            script = ''
-              ruff check
-            '';
-          };
+          python = self.packages.${system}.default;
 
           nix = {
             root = ./.;
@@ -192,6 +185,15 @@
             buildInputs = with pkgs; [
               nvtopPackages.full
             ];
+
+            nativeCheckInputs = with pkgs; [
+              ruff
+              basedpyright
+            ];
+            checkPhase = ''
+              ruff check
+              basedpyright
+            '';
 
             makeWrapperArgs = [
               "--prefix PATH : ${pkgs.nvtopPackages.full}/bin"
