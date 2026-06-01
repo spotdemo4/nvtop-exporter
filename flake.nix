@@ -156,7 +156,7 @@
         packages.default = pkgs.python314Packages.buildPythonPackage (
           final: with pkgs.lib; {
             pname = "nvtop-exporter";
-            version = "0.0.10";
+            version = "0.0.11";
 
             src = fileset.toSource {
               root = ./.;
