@@ -1,13 +1,15 @@
+#:schema https://www.schemastore.org/treefmt.json
+
 [formatter.ruff]
 command = "ruff"
 options = ["format"]
 includes = ["*.py"]
 
-[formatter.nix]
+[formatter.nixfmt]
 command = "nixfmt"
 includes = ["*.nix"]
 
-[formatter.prettier]
-command = "prettier"
+[formatter.oxfmt]
+command = "oxfmt"
 options = ["--write"]
-includes = ["*.yaml", "*.md"]
+includes = ["*.json", "*.yaml", "*.toml", "*.md"]

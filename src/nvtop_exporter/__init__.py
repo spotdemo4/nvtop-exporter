@@ -1,5 +1,6 @@
-import os
 import logging
+import os
+
 from .exporter import init, start
 
 LOG_LEVELS = {
@@ -7,7 +8,7 @@ LOG_LEVELS = {
     "FATAL": logging.FATAL,
     "ERROR": logging.ERROR,
     "WARNING": logging.WARNING,
-    "WARN": logging.WARN,
+    "WARN": logging.WARNING,
     "INFO": logging.INFO,
     "DEBUG": logging.DEBUG,
     "NOTSET": logging.NOTSET,

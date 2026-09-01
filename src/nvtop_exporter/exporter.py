@@ -1,16 +1,18 @@
+import logging
 import os
 import signal
-import logging
 from types import FrameType
 from typing import override
+
 from prometheus_client import (
     GC_COLLECTOR,
     PLATFORM_COLLECTOR,
     PROCESS_COLLECTOR,
     start_http_server,
 )
-from prometheus_client.core import GaugeMetricFamily, REGISTRY
+from prometheus_client.core import REGISTRY, GaugeMetricFamily
 from prometheus_client.registry import Collector
+
 from .nvtop import get_nvtop
 
 log = logging.getLogger(__name__)

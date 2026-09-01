@@ -9,13 +9,15 @@ concurrency:
   group: release
 
 permissions:
-  contents: write
-  id-token: write
-  packages: write
+  contents: read
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
     steps:
       - name: Initialize
         uses: spotdemo4/nix-init@c7537bc73ce11ca01e53bd9d119d6e46363f9888 # v1.65.0

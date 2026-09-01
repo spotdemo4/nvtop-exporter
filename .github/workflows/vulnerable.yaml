@@ -7,11 +7,10 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
-  python:
-    runs-on: ubuntu-latest
+  actions:
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
     steps:
@@ -20,11 +19,11 @@ jobs:
         with:
           shell: vulnerable
 
-      - name: Run pysentry
-        run: pysentry
+      - name: Run zizmor
+        run: zizmor $(find .github/workflows -name "*.yaml")
 
-  flake:
-    runs-on: ubuntu-latest
+  nix:
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
     steps:
@@ -36,8 +35,8 @@ jobs:
       - name: Run flake-checker
         run: flake-checker -f
 
-  actions:
-    runs-on: ubuntu-latest
+  python:
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
     steps:
@@ -46,5 +45,5 @@ jobs:
         with:
           shell: vulnerable
 
-      - name: Run zizmor
-        run: zizmor .github
+      - name: Run pysentry
+        run: pysentry

@@ -1,8 +1,9 @@
-import subprocess
 import json
-import re
 import logging
+import re
+import subprocess
 from typing import Annotated, cast
+
 from pydantic import BaseModel, BeforeValidator
 from pydantic_core import PydanticUseDefault
 
